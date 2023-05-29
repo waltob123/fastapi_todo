@@ -20,6 +20,10 @@ class UserResponseModel(UserBase):
         orm_mode = True
 
 
+class UserUpdateModel(BaseModel):
+    username: str
+
+
 class TokenData(BaseModel):
     access_token: str
     token_type: str
