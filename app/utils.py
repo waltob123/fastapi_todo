@@ -1,4 +1,10 @@
+from  datetime import datetime
+
+from sqlalchemy.orm import Session
 from passlib.context import CryptContext
+
+from .database import SessionLocal
+from .models import Tasks
 
 
 MINIMUM_PASSWORD_LENGTH = 8
@@ -49,3 +55,20 @@ def password_meets_requirements(password: str) -> bool:
     if all([uppercase_check, integer_check, symbol_check]):
         return True
     return False
+
+
+# set all tasks that are outdated is_active to False
+def set_all_inactive_tasks_to_false():
+    '''set all inactive tasks to false'''
+    db = SessionLocal()
+    tasks = db.query(Tasks).all()
+    if len(tasks) > 0:
+        for task in tasks:
+            if task.time_due < datetime.utcnow():
+                db.query(Tasks).filter(Tasks.id == task.id).update({'is_active': False})
+                db.commit()
+            else:
+                db.query(Tasks).filter(Tasks.id == task.id).update({'is_active': True})
+                db.commit()
+            print(task.created_at)
+    db.close()

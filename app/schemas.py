@@ -34,3 +34,19 @@ class TokenData(BaseModel):
 class TokenPayload(BaseModel):
     id: str
     exp: datetime
+    
+
+class Task(BaseModel):
+    task: str
+    time_due: datetime
+    remind_me: bool
+    repeat: bool
+    
+
+class TaskResponseModel(Task):
+    is_active: bool
+    id: str
+    user: UserResponseModel
+
+    class Config:
+        orm_mode = True

@@ -78,5 +78,4 @@ def update_user(user: UserUpdateModel, db: Session = Depends(get_db), current_us
         db.commit()
     except Exception:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f'username exists already')
-    
     return user_to_be_updated

@@ -24,6 +24,7 @@ class Tasks(Base):
     time_due = Column('time_due', TIMESTAMP(timezone=True), nullable=False)
     remind_me = Column('reminder', Boolean, server_default=expression.false(), nullable=False)
     repeat = Column('repeat', Boolean, server_default=expression.false(), nullable=False)
+    is_active = Column('is_active', Boolean, server_default=expression.false(), nullable=False)
     user_id = Column('user_id', Integer, ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
     created_at = Column('created_at', TIMESTAMP(timezone=True), server_default=expression.text('NOW()'), nullable=False)
     
