@@ -70,5 +70,4 @@ def set_all_inactive_tasks_to_false():
             else:
                 db.query(Tasks).filter(Tasks.id == task.id).update({'is_active': True})
                 db.commit()
-            print(task.created_at)
     db.close()
